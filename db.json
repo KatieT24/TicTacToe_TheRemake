@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "name": "bob test",
+      "color": "red"
+    },
+    {
+      "name": "jill test",
+      "color": "yellow"
+    },
+    {
+      "tictactoeScore": 500
+    }
+  ]
+}
