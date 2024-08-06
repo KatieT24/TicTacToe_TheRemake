@@ -27,9 +27,12 @@ function playTicTacToe() {
 //SECTION - New functiomns for modal
 
 function showModal(message){
-  document.getElementById('modalBody').innerText = message;
-  $('.bd-example-modal-sm').modal('show');
+console.log("showed Modal")  
+ var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+ document.getElementById('modalBody').innerText = message;
+ myModal.show()
 }
+
 
   //adds click events to each square
   for (let i = 1; i <= 9; i++) {
@@ -90,18 +93,14 @@ function showModal(message){
    //NOTE - had a helluva time trying to get the modal function to work,
    // but with a little bit of serching and figuring out why it wasn't woking,
    //ive decided to add on more function to this bottom to make sure this the modal will initialize.
-document.addEventListener("DOMContentLoaded", function(){
-  $('.bd-example-modal-sm').modal({
-    backdrop: 'static',
-    keyboard: false,
-    show: false
-  });
-});
+// document.addEventListener("DOMContentLoaded", function(){
+  
 }
 
 //NOTE - needed one more function to reset game
 function resetGame() {
-  playedSquares =[];
+  console.log("reset Triggered")
+  playedSquares = [];
   xMoves = [];
   oMoves = [];
   currentPlayer = "X"
@@ -109,6 +108,7 @@ function resetGame() {
   for (let i = 1; i <= 9; i++){
     document.getElementById(i).innerHTML = "";
   } 
+  playTicTacToe();
 }
   //end of playTicTacToe function
 
