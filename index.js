@@ -6,6 +6,8 @@ function playTicTacToe() {
   let xMoves = [];
   // tracks o
   let oMoves = [];
+  //defines the game over
+  let gameOver = false;
 
   const winningMoves = [
     [1, 2, 3],
@@ -28,10 +30,30 @@ function playTicTacToe() {
 
 function showModal(message){
 console.log("showed Modal")  
- var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+ var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+
+  backdrop: false
+ });
+
  document.getElementById('modalBody').innerText = message;
  myModal.show()
-}
+
+ document.querySelector('.btn-close').addEventListener('click', function(){
+  myModal.hide()
+  console.log('cleared backdrop')
+ });
+
+ document.getElementById('exampleModal').addEventListener('hidden.bs.modal', function(){
+  console.log('Need to clear backdrop.')
+  const backdrop = document.querySelector('.modal-backdrop');
+  if (backdrop){
+    console.log('backdrop found, remmoving')
+    backdrop.parentNode.removeChild(backdrop);
+    
+  } else{
+    console.log('no backdrop found.')
+  };}
+)};
 
 
   //adds click events to each square
@@ -46,6 +68,7 @@ console.log("showed Modal")
     console.log("This is my square:", square);
 
     square.addEventListener("click", function () {
+    if (gameOver) return;
 
       console.log("Played Squares?", playedSquares);
       console.log("Before if statement:", !playedSquares.includes(i));
@@ -61,11 +84,13 @@ console.log("showed Modal")
         if (currentPlayer === 'X') {
           xMoves.push(i);
           if (checkWinner(xMoves)) {
+            gameOver = true;
             setTimeout(() => showModal("Player X wins!"), 100); 
           }
         } else {
           oMoves.push(i);
           if (checkWinner(oMoves)){
+            gameOver = true; 
             setTimeout(() => showModal("player O wins!"), 100); 
             
           }
@@ -79,6 +104,7 @@ console.log("showed Modal")
         console.log("This is now the currentPlayer", currentPlayer);
 
         if (playedSquares.length ===9){
+          gameOver = true;
           setTimeout(() => showModal("Its a draw!"), 100);
         }
       }
@@ -104,6 +130,7 @@ function resetGame() {
   xMoves = [];
   oMoves = [];
   currentPlayer = "X"
+  gameOver = false; //resetting game over
 
   for (let i = 1; i <= 9; i++){
     document.getElementById(i).innerHTML = "";
