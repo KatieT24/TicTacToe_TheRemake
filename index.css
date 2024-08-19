@@ -10,10 +10,8 @@ body {
 h1 {
   font-weight: bold;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: rgb(154, 8, 8);
+  color: rgba(136, 33, 33, 0.825);
   text-shadow: 2px 2px 4px #000000;
-
-
 }
 
 .board {
