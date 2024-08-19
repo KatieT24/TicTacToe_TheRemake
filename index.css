@@ -55,7 +55,7 @@ transition: background-color 0.2s ease, transform 0.3s ease;
 }
 
 #resetButton:hover{
-  background-color: bisque;
+  background-color: rgb(65, 9, 138);
   transform: scale(1.05);
 }
 

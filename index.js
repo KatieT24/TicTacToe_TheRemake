@@ -47,11 +47,10 @@ console.log("showed Modal")
   console.log('Need to clear backdrop.')
   const backdrop = document.querySelector('.modal-backdrop');
   if (backdrop){
-    console.log('backdrop found, remmoving')
     backdrop.parentNode.removeChild(backdrop);
     
   } else{
-    console.log('no backdrop found.')
+    console.log('no backdrop.')
   };}
 )};
 
