@@ -7,6 +7,15 @@ body {
   background-color: forestgreen;
 }
 
+h1 {
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: rgb(154, 8, 8);
+  text-shadow: 2px 2px 4px #000000;
+
+
+}
+
 .board {
   display: grid;
   grid-template-columns: 100px 100px 100px;
@@ -30,7 +39,7 @@ body {
  align-items: center;
  font-size: 2em;
  font-weight: bolder;
- background-color: aliceblue; /*NOTE - to add a littl background color to tiles. */
+ background-color: rgb(184, 204, 221); /*NOTE - to add a littl background color to tiles. */
 }
 
 .modal-button{
