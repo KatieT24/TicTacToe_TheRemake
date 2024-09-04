@@ -14,6 +14,12 @@ h1 {
   text-shadow: 2px 2px 4px #000000;
 }
 
+#turn-indicator {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  color:black;
+ }
+
 .board {
   display: grid;
   grid-template-columns: 100px 100px 100px;
