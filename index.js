@@ -160,11 +160,11 @@ let currentPlayer = "X";
     document.querySelectorAll('.tile').forEach(tile => {
       tile.textContent = '';
     });
-    
+
   }
 
   document.querySelectorAll('.tile').forEach((tile) => {
-    tile.addEventListener("click", handleClick);
+    tile.addEventListener('click', handleClick);
   });
   //NOTE - making sure to add on an event listener  
   //NOTE - for resetting the game to start off with X.
