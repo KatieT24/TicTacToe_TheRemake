@@ -1,14 +1,14 @@
-function playTicTacToe() {
-  let currentPlayer = "X";
-  // Array to hold all board moves
-  let playedSquares = [];
-  // tracks x
-  let xMoves = [];
-  // tracks o
-  let oMoves = [];
-  //defines the game over
-  let gameOver = false;
+let currentPlayer = "X";
+// Array to hold all board moves
+let playedSquares = [];
+// Tracks X
+let xMoves = [];
+// Tracks O
+let oMoves = [];
+// Defines the game over
+let gameOver = false;
 
+function playTicTacToe() {
   const winningMoves = [
     [1, 2, 3],
     [4, 5, 6],
@@ -20,8 +20,7 @@ function playTicTacToe() {
     [3, 5, 7],
   ];
 
-  //NOTE - adding the turn indicator function
-  
+  // NOTE - adding the turn indicator function
 
   function checkWinner(playerMoves) {
     return winningMoves.some((combination) =>
@@ -29,8 +28,7 @@ function playTicTacToe() {
     );
   }
 
-  //SECTION - New functiomns for modal
-
+  // SECTION - New functions for modal
   function showModal(message) {
     console.log("showed Modal");
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {
@@ -58,128 +56,87 @@ function playTicTacToe() {
       });
   }
 
-  //adds click events to each square
-  for (let i = 1; i <= 9; i++) {
-    console.log(
-      `
-  What is i?`,
-      i
-    );
+  // Function to handle the player moves
+  function handleMove(event) {
+    const square = event.target;
+    const squareId = parseInt(square.id); // Get the square's ID
 
-    let square = document.getElementById(i);
-    console.log("This is my square:", square);
+    if (playedSquares.includes(squareId) || gameOver) return; // Prevent moves if the square has been played or game is over
 
-    square.addEventListener("click", function () {
-      if (gameOver) return;
+    playedSquares.push(squareId); // Register the move
+    square.innerHTML = currentPlayer; // Display X or O
 
-      console.log("Played Squares?", playedSquares);
-      console.log("Before if statement:", !playedSquares.includes(i));
-
-      if (!playedSquares.includes(i)) {
-        console.log("This is the currentPlayer", currentPlayer);
-        console.log("Played Square i", i, currentPlayer);
-
-        playedSquares.push(i);
-        square.innerHTML = currentPlayer;
-
-        if (currentPlayer === "X") {
-          xMoves.push(i);
-          if (checkWinner(xMoves)) {
-            gameOver = true;
-            setTimeout(() => showModal("Player X wins!"), 100);
-          }
-        } else {
-          oMoves.push(i);
-          if (checkWinner(oMoves)) {
-            gameOver = true;
-            setTimeout(() => showModal("player O wins!"), 100);
-          }
-        }
-
-        //check each turn for a winner
-        console.log("Checking who winner is?", checkWinner);
-
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-
-        console.log("This is now the currentPlayer", currentPlayer);
-
-        if (playedSquares.length === 9) {
-          gameOver = true;
-          setTimeout(() => showModal("Its a draw!"), 100);
-        }
+    if (currentPlayer === "X") {
+      xMoves.push(squareId);
+      if (checkWinner(xMoves)) {
+        gameOver = true;
+        setTimeout(() => showModal("Player X wins!"), 100);
+        return;
       }
-    });
-  }
+    } else {
+      oMoves.push(squareId);
+      if (checkWinner(oMoves)) {
+        gameOver = true;
+        setTimeout(() => showModal("Player O wins!"), 100);
+        return;
+      }
+    }
 
-  let reset = document.getElementById("resetButton");
-  reset.addEventListener("click", function () {
-    resetGame();
-  });
+    // Check for draw
+    if (playedSquares.length === 9) {
+      gameOver = true;
+      setTimeout(() => showModal("It's a draw!"), 100);
+      return;
+    }
 
-  //NOTE - had a helluva time trying to get the modal function to work,
-  // but with a little bit of serching and figuring out why it wasn't woking,
-  //ive decided to add on more function to this bottom to make sure this the modal will initialize.
-  // document.addEventListener("DOMContentLoaded", function(){
-}
-
-//NOTE - needed one more function to reset game
-function resetGame() {
-  console.log("reset Triggered");
-  playedSquares = [];
-  xMoves = [];
-  oMoves = [];
-  currentPlayer = "X";
-  gameOver = false; //resetting game over
-
-  for (let i = 1; i <= 9; i++) {
-    document.getElementById(i).innerHTML = "";
-  }
-  playTicTacToe();
-}
-//end of playTicTacToe function
-//NOTE - adding header fucntion to show whose turn it is
-
-let currentPlayer = "X";
-  function updateTurnIndicator() {
-    document.getElementById(
-      "turn-indicator"
-    ).textContent = `${currentPlayer}'s Turn`;
-  }
-
-  function handleClick(event) {
-    const tile = event.tatget;
-
+    // Swap current player
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     updateTurnIndicator();
   }
 
-  function resetGame(){
-    currentPlayer = 'X';
-    updateTurnIndicator();
+  // Attach click event listeners to each square
+  document.querySelectorAll(".tile").forEach((square) => {
+    square.innerHTML = ""; // Clear the square
+    square.removeEventListener("click", handleMove); // Clear old event listeners
+    square.addEventListener("click", handleMove); // Add new event listener
+  });
+}
 
-    document.querySelectorAll('.tile').forEach(tile => {
-      tile.textContent = '';
-    });
+// Function to reset the game and clear the board
+function resetGame() {
+  console.log("reset Triggered");
 
+  playedSquares = [];
+  xMoves = [];
+  oMoves = [];
+  currentPlayer = "X";
+  gameOver = false; // resetting game over
+
+  // Clear the game board
+  for (let i = 1; i <= 9; i++) {
+    document.getElementById(i).innerHTML = "";
   }
 
-  document.querySelectorAll('.tile').forEach((tile) => {
-    tile.addEventListener('click', handleClick);
-  });
-  //NOTE - making sure to add on an event listener  
-  //NOTE - for resetting the game to start off with X.
-  document.getElementById('resetButton').addEventListener('click', resetGame);
-  updateTurnIndicator();
+  playTicTacToe(); // Reinitialize the game
+  updateTurnIndicator(); // Update the turn indicator
+}
 
+// NOTE - adding header function to show whose turn it is
+function updateTurnIndicator() {
+  document.getElementById(
+    "turn-indicator"
+  ).textContent = `${currentPlayer}'s Turn`;
+}
+
+// Attach event listener to the reset button
+document.getElementById("resetButton").addEventListener("click", resetGame);
+
+// Initialize the game with the turn indicator
 playTicTacToe();
+updateTurnIndicator();
 
-//display who won
-//implement a reset button
-
-// async function logMovies() {
-// const response = await fetch("http://localhost:3000/users");
-// const movies = await response.json();
-// console.log(movies);
-// }
-
-// logMovies();
+// NOTE - making sure to add on an event listener
+// NOTE - for resetting the game to start off with X.
+document.querySelectorAll(".tile").forEach((tile) => {
+  tile.addEventListener("click", handleMove);
+});
