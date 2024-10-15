@@ -56,7 +56,7 @@ function playTicTacToe() {
       });
   }
 
-  // Function to handle the player moves
+  //NOTE - Function to handle the player moves
   function handleMove(event) {
     const square = event.target;
     const squareId = parseInt(square.id); // Get the square's ID
@@ -94,7 +94,7 @@ function playTicTacToe() {
     updateTurnIndicator();
   }
 
-  // Attach click event listeners to each square
+  //NOTE - Attach click event listeners to each square
   document.querySelectorAll(".tile").forEach((square) => {
     square.innerHTML = ""; // Clear the square
     square.removeEventListener("click", handleMove); // Clear old event listeners
@@ -137,6 +137,3 @@ updateTurnIndicator();
 
 // NOTE - making sure to add on an event listener
 // NOTE - for resetting the game to start off with X.
-document.querySelectorAll(".tile").forEach((tile) => {
-  tile.addEventListener("click", handleMove);
-});
